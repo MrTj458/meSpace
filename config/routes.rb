@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'api/auth'
   namespace :api do
-    #API ROUTES SHOULD GO HERE
+    get '/users/:user_id/posts', to: 'posts#index'
+    get '/users/:user_id/posts/:id', to: 'posts#show'
+    post '/users/:user_id/posts', to: 'post#create'
+    put '/users/:user_id/posts/:id', to: 'post#update'
+    delete '/users/:user_id/posts/:id', to: 'post#destroy'
   end
 
   #Do not place any routes below this one
