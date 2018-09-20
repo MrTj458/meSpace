@@ -4,7 +4,7 @@ import {Container, Header, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 
 class User extends React.Component {
-	state = {user: {}, posts: [], body: ''}
+	state = {user: {}, posts: [], body: '', bio: '', editing: false}
 
 	componentDidMount() {
 		const userId = this.props.match.params.id
@@ -16,10 +16,37 @@ class User extends React.Component {
 			.then(res => this.setState({posts: res.data}))
 	}
 
+	handleBioSubmit = (e) => {
+		e.preventDefault()
+		//Need to make stuff for updating bio
+		this.setState({bio: ''})
+	}
+
+	swapEditing = () => {
+		this.setState({editing: !this.state.editing})
+	}
+
+	editingBio = () => {
+		if(this.state.editing) {
+			return (
+				<form onSubmit={this.handleBioSubmit}>
+					<input
+						name="bio"
+						required
+						placeholder="Bio"
+						value={this.state.bio ? this.state.bio : this.state.user.bio}
+						onChange={this.handleChange}
+					/>
+					<Button>Save</Button>
+				</form>
+			)
+		}
+	}
+
 	editBio = () => {
 		if(this.props.currentUser.id === this.state.user.id) {
 			return (
-				<Button circular>Edit Bio</Button>
+				<Button circular onClick={this.swapEditing}>Edit Bio</Button>
 			)
 		}
 	}
@@ -29,7 +56,7 @@ class User extends React.Component {
 		this.setState({[name]: value})
 	}
 
-	handleSubmit = (e) => {
+	handlePostSubmit = (e) => {
 		e.preventDefault()
 		const post = {body: this.state.body}
 		axios.post(`/api/users/${this.props.currentUser.id}/posts`, {post})
@@ -40,7 +67,7 @@ class User extends React.Component {
 	makePost = () => {
 		if(this.props.currentUser.id === this.state.user.id) {
 			return (
-				<form onSubmit={this.handleSubmit}>
+				<form onSubmit={this.handlePostSubmit}>
 					<input
 						name="body"
 						required
@@ -60,6 +87,7 @@ class User extends React.Component {
 				<Header as="h1" textAlign="center">{user.nickname}</Header>
 				<Header as="h3" textAlign="center">Bio:</Header>
 				{this.editBio()}
+				{this.editingBio()}
 				<Header as="h5" textAlign="center">{user.bio ? user.bio : 'This user does not have a bio yet.'}</Header>
 				<Header as="h2" textAlign="center">Posts:</Header>
 				{this.makePost()}
