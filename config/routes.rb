@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   namespace :api do
     get '/users/:user_id/posts', to: 'posts#index'
     get '/users/:user_id/posts/:id', to: 'posts#show'
-    post '/users/:user_id/posts', to: 'post#create'
-    put '/users/:user_id/posts/:id', to: 'post#update'
-    delete '/users/:user_id/posts/:id', to: 'post#destroy'
+    post '/users/:user_id/posts', to: 'posts#create'
+    put '/users/:user_id/posts/:id', to: 'posts#update'
+    delete '/users/:user_id/posts/:id', to: 'posts#destroy'
 
     get '/users', to: 'users#index'
     get '/users/:id', to: 'users#show'
