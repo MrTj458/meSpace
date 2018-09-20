@@ -12,6 +12,10 @@ class NavBar extends Component {
       return (
         <Menu.Menu position='right'>
           <Menu.Item
+            name='My Profile'
+            onClick={() => history.push(`/users/${user.id}`)}
+          />
+          <Menu.Item
             name='Logout'
             onClick={() => dispatch(handleLogout(history))}
           />

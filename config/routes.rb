@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     post '/users/:user_id/posts', to: 'post#create'
     put '/users/:user_id/posts/:id', to: 'post#update'
     delete '/users/:user_id/posts/:id', to: 'post#destroy'
+
+    get '/users', to: 'users#index'
+    get '/users/:id', to: 'users#show'
   end
 
   #Do not place any routes below this one
