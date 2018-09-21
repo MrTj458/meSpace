@@ -16,6 +16,12 @@ class User extends React.Component {
 			.then(res => this.setState({posts: res.data}))
 	}
 
+	componentDidUpdate(prevProps) {
+		if(prevProps.match.params.id !== this.props.match.params.id) {
+			this.componentDidMount()
+		}
+	}
+
 	handleBioSubmit = (e) => {
 		e.preventDefault()
 		const updatedUser = {bio: this.state.bio}
