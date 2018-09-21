@@ -18,8 +18,12 @@ class User extends React.Component {
 
 	handleBioSubmit = (e) => {
 		e.preventDefault()
-		//Need to make stuff for updating bio
-		this.setState({bio: ''})
+		const updatedUser = {bio: this.state.bio}
+		axios.put(`/api/users/${this.props.currentUser.id}`, {user: updatedUser})
+			.then(res =>
+				this.setState({user: res.data})
+			)
+		this.setState({bio: '', editing: false})
 	}
 
 	swapEditing = () => {
@@ -34,7 +38,7 @@ class User extends React.Component {
 						name="bio"
 						required
 						placeholder="Bio"
-						value={this.state.bio ? this.state.bio : this.state.user.bio}
+						value={this.state.bio}
 						onChange={this.handleChange}
 					/>
 					<Button>Save</Button>
