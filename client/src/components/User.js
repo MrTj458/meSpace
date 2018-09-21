@@ -7,19 +7,23 @@ class User extends React.Component {
 	state = {user: {}, posts: [], body: '', bio: '', editing: false}
 
 	componentDidMount() {
-		const userId = this.props.match.params.id
-
-		axios.get(`/api/users/${userId}`)
-			.then(res => this.setState({user: res.data}))
-
-		axios.get(`/api/users/${userId}/posts`)
-			.then(res => this.setState({posts: res.data}))
+		this.getUserAndPosts()
 	}
 
 	componentDidUpdate(prevProps) {
 		if(prevProps.match.params.id !== this.props.match.params.id) {
-			this.componentDidMount()
+			this.getUserAndPosts()
 		}
+	}
+
+	getUserAndPosts = () => {
+		const userId = this.props.match.params.id
+
+		axios.get(`/api/users/${userId}`)
+			.then(res => this.setState({ user: res.data }))
+
+		axios.get(`/api/users/${userId}/posts`)
+			.then(res => this.setState({ posts: res.data }))
 	}
 
 	handleBioSubmit = (e) => {
