@@ -12,7 +12,7 @@ class NavBar extends Component {
       return (
         <Menu.Menu position='right'>
           <Menu.Item
-            name='My Profile'
+            name={this.props.user.nickname}
             onClick={() => history.push(`/users/${user.id}`)}
           />
           <Menu.Item
