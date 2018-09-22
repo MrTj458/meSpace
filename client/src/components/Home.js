@@ -20,9 +20,14 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Card.Group style={styles.margin} itemsPerRow={4}>
+      <Card.Group
+        centered
+        style={styles.margin}
+        itemsPerRow={4}
+      >
         {this.state.users.map(user =>
-          <Card key={user.id}
+          <Card
+            key={user.id}
             link
             onClick={() => this.clickUser(user.id)}
           >

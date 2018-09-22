@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Container, Header, Button} from 'semantic-ui-react'
+import {Container, Header, Button, Form, Icon} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 
 class User extends React.Component {
@@ -43,16 +43,21 @@ class User extends React.Component {
 	editingBio = () => {
 		if(this.state.editing) {
 			return (
-				<form onSubmit={this.handleBioSubmit}>
-					<input
-						name="bio"
-						required
-						placeholder="Bio"
-						value={this.state.bio}
-						onChange={this.handleChange}
-					/>
-					<Button>Save</Button>
-				</form>
+				<Form onSubmit={this.handleBioSubmit}>
+					<Form.Field>
+						<input
+							name="bio"
+							required
+							placeholder="Bio"
+							value={this.state.bio}
+							onChange={this.handleChange}
+						/>
+					</Form.Field>
+					<Button icon labelPosition='right' type="submit">
+						Save
+						<Icon name='save' />
+					</Button>
+				</Form>
 			)
 		}
 	}
@@ -81,15 +86,21 @@ class User extends React.Component {
 	makePost = () => {
 		if(this.props.currentUser.id === this.state.user.id) {
 			return (
-				<form onSubmit={this.handlePostSubmit}>
-					<input
-						name="body"
-						required
-						value={this.state.body}
-						onChange={this.handleChange}
-					/>
-					<Button primary>Post</Button>
-				</form>
+				<Form onSubmit={this.handlePostSubmit}>
+					<Form.Field>
+						<input
+							name="body"
+							required
+							value={this.state.body}
+							placeholder="Make a Post"
+							onChange={this.handleChange}
+						/>
+					</Form.Field>
+					<Button icon labelPosition='right' type="submit" primary>
+						Post
+						<Icon name='send' />
+					</Button>
+				</Form>
 			)
 		}
 	}
