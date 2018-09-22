@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react'
-import { Header, List } from 'semantic-ui-react'
+import React from 'react'
+import { Card, Button } from 'semantic-ui-react'
 import axios from 'axios'
 
 class Home extends React.Component {
@@ -16,14 +16,21 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Fragment>
-        <Header as="h1">Users:</Header>
-        <List bulleted>
+      <Card.Group>
         {this.state.users.map(user =>
-          <List.Item key={user.id} onClick={() => this.clickUser(user.id)}>{user.nickname}</List.Item>
+          <Card key={user.id}>
+            <Card.Content>
+              <Card.Header>{user.nickname}</Card.Header>
+              <Card.Description>
+                { user.bio ? user.bio : 'This user does not have a bio yet.' }
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <Button onClick={() => this.clickUser(user.id)}>View User</Button>
+            </Card.Content>
+          </Card>
         )}
-        </List>
-      </Fragment>
+      </Card.Group>
     )
   }
 }
