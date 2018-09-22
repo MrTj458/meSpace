@@ -10,11 +10,12 @@ import ProtectedRoute from './ProtectedRoute';
 import AuthRoute from './AuthRoute';
 import FetchUser from './FetchUser';
 import User from './User'
+import {Container} from 'semantic-ui-react'
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <Container>
         <NavBar />
         <Flash />
         <FetchUser>
@@ -26,7 +27,7 @@ class App extends Component {
             <Route component={NoMatch} />
           </Switch>
         </FetchUser>
-      </div>
+      </Container>
     );
   }
 }
